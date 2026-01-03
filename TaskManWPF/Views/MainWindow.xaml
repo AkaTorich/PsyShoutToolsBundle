@@ -1,0 +1,100 @@
+<Window x:Class="TaskManWPF.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:TaskManWPF.ViewModels"
+        xmlns:views="clr-namespace:TaskManWPF.Views"
+        Title="TaskMan" 
+        Height="800" Width="1300"
+        MinHeight="600" MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource MainWindowStyle}">
+    
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:ProcessesViewModel}">
+            <views:ProcessesView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AutorunViewModel}">
+            <views:AutorunView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TaskSchedulerViewModel}">
+            <views:TaskSchedulerView/>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Sidebar -->
+        <Border Grid.Column="0" Background="{StaticResource SurfaceBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Logo -->
+                <StackPanel Grid.Row="0" Margin="20,24,20,32">
+                    <TextBlock Text="⚡" FontSize="32" Foreground="{StaticResource PrimaryBrush}"/>
+                    <TextBlock Text="TaskMan" 
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Foreground="{StaticResource TextPrimaryBrush}"
+                               Margin="0,8,0,0"/>
+                    <TextBlock Text="Системный менеджер" 
+                               FontSize="12" 
+                               Foreground="{StaticResource TextSecondaryBrush}"/>
+                </StackPanel>
+                
+                <!-- Navigation -->
+                <StackPanel Grid.Row="1" Margin="8,0">
+                    <TextBlock Text="НАВИГАЦИЯ" 
+                               FontSize="11" 
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource TextMutedBrush}"
+                               Margin="16,0,0,12"/>
+                    
+                    <RadioButton Style="{StaticResource NavButtonStyle}"
+                                 Content="Процессы"
+                                 Tag="&#xE9D9;"
+                                 IsChecked="{Binding CurrentPage, Converter={x:Static views:MainWindow.EqualityConverter}, ConverterParameter=Processes, Mode=OneWay}"
+                                 Command="{Binding NavigateToProcessesCommand}"/>
+                    
+                    <RadioButton Style="{StaticResource NavButtonStyle}"
+                                 Content="Автозапуск"
+                                 Tag="&#xE768;"
+                                 IsChecked="{Binding CurrentPage, Converter={x:Static views:MainWindow.EqualityConverter}, ConverterParameter=Autorun, Mode=OneWay}"
+                                 Command="{Binding NavigateToAutorunCommand}"/>
+                    
+                    <RadioButton Style="{StaticResource NavButtonStyle}"
+                                 Content="Планировщик"
+                                 Tag="&#xE787;"
+                                 IsChecked="{Binding CurrentPage, Converter={x:Static views:MainWindow.EqualityConverter}, ConverterParameter=Tasks, Mode=OneWay}"
+                                 Command="{Binding NavigateToTasksCommand}"/>
+                </StackPanel>
+                
+                <!-- Footer -->
+                <StackPanel Grid.Row="2" Margin="20,0,20,20">
+                    <Border Height="1" Background="{StaticResource BorderBrush}" Margin="0,0,0,16"/>
+                    <TextBlock Text="Запуск от имени администратора" 
+                               FontSize="11" 
+                               Foreground="{StaticResource SuccessBrush}"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <!-- Main Content -->
+        <Border Grid.Column="1" Padding="32">
+            <ContentControl Content="{Binding CurrentView}"/>
+        </Border>
+    </Grid>
+</Window>
+

@@ -1,0 +1,10 @@
+PsyShoutTools License Agreement
+
+This software, including all its components and applications, is the exclusive property of PsyShout, the copyright holder. By installing and using this software, you agree to the following terms:
+
+1. You are strictly prohibited from decompiling, disassembling, or reverse-engineering this software or any of its parts.
+2. Stealing, copying, or redistributing any portion of the code or the software itself, in whole or in part, is forbidden.
+3. These applications are protected by copyright law and international treaties. Unauthorized use, reproduction, or distribution may result in legal action.
+4. All rights to this software are reserved by PsyShout.
+
+If you do not agree to these terms, do not install or use this software.

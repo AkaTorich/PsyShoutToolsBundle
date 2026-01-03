@@ -1,0 +1,310 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Colors -->
+    <Color x:Key="NeonPurple">#B026FF</Color>
+    <Color x:Key="NeonPink">#FF1493</Color>
+    <Color x:Key="NeonBlue">#00BFFF</Color>
+    <Color x:Key="NeonGreen">#39FF14</Color>
+    <Color x:Key="DarkBackground">#0A0A0F</Color>
+    <Color x:Key="MediumDark">#1A1A2E</Color>
+
+    <SolidColorBrush x:Key="NeonPurpleBrush" Color="{StaticResource NeonPurple}"/>
+    <SolidColorBrush x:Key="NeonPinkBrush" Color="{StaticResource NeonPink}"/>
+    <SolidColorBrush x:Key="NeonBlueBrush" Color="{StaticResource NeonBlue}"/>
+    <SolidColorBrush x:Key="NeonGreenBrush" Color="{StaticResource NeonGreen}"/>
+    <SolidColorBrush x:Key="DarkBackgroundBrush" Color="{StaticResource DarkBackground}"/>
+    <SolidColorBrush x:Key="MediumDarkBrush" Color="{StaticResource MediumDark}"/>
+
+    <!-- Gradients -->
+    <LinearGradientBrush x:Key="PsyGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{StaticResource NeonPurple}" Offset="0"/>
+        <GradientStop Color="{StaticResource NeonPink}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource NeonBlue}" Offset="1"/>
+    </LinearGradientBrush>
+
+    <RadialGradientBrush x:Key="GlowGradient">
+        <GradientStop Color="{StaticResource NeonPurple}" Offset="0"/>
+        <GradientStop Color="#00000000" Offset="1"/>
+    </RadialGradientBrush>
+
+    <!-- Button Style -->
+    <Style x:Key="PsyButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource PsyGradient}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="15,8"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="PART_Border"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="20"
+                            Padding="{TemplateBinding Padding}">
+                        <Border.Effect>
+                            <DropShadowEffect Color="{StaticResource NeonPurple}"
+                                            BlurRadius="15"
+                                            ShadowDepth="0"
+                                            Opacity="0.8"/>
+                        </Border.Effect>
+                        <ContentPresenter HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_Border" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Color="{StaticResource NeonPink}"
+                                                    BlurRadius="20"
+                                                    ShadowDepth="0"
+                                                    Opacity="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Circular Button -->
+    <Style x:Key="CircularButton" TargetType="Button" BasedOn="{StaticResource PsyButton}">
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="{TemplateBinding Background}">
+                            <Ellipse.Effect>
+                                <DropShadowEffect Color="{StaticResource NeonPurple}"
+                                                BlurRadius="15"
+                                                ShadowDepth="0"
+                                                Opacity="0.8"/>
+                            </Ellipse.Effect>
+                        </Ellipse>
+                        <ContentPresenter HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Slider Style -->
+    <Style x:Key="PsySlider" TargetType="Slider">
+        <Setter Property="Foreground" Value="{StaticResource PsyGradient}"/>
+        <Setter Property="Background" Value="{StaticResource MediumDarkBrush}"/>
+        <Setter Property="Height" Value="6"/>
+    </Style>
+
+    <!-- Volume Slider Custom Style -->
+    <Style x:Key="VolumeSlider" TargetType="Slider">
+        <Setter Property="Height" Value="10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Slider">
+                    <Grid ClipToBounds="False">
+                        <!-- Background Track -->
+                        <Border Height="10"
+                                CornerRadius="5"
+                                Background="#1A1A2E"
+                                VerticalAlignment="Center">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="2" Opacity="0.5"/>
+                            </Border.Effect>
+                        </Border>
+
+                        <!-- Standard Track with Styled Parts -->
+                        <Track x:Name="PART_Track" VerticalAlignment="Center" ClipToBounds="False">
+                            <Track.DecreaseRepeatButton>
+                                <RepeatButton Command="Slider.DecreaseLarge">
+                                    <RepeatButton.Style>
+                                        <Style TargetType="RepeatButton">
+                                            <Setter Property="OverridesDefaultStyle" Value="true"/>
+                                            <Setter Property="IsTabStop" Value="false"/>
+                                            <Setter Property="Focusable" Value="false"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="RepeatButton">
+                                                        <Border Height="10"
+                                                                CornerRadius="5"
+                                                                Background="{StaticResource PsyGradient}">
+                                                            <Border.Effect>
+                                                                <DropShadowEffect Color="{StaticResource NeonPink}"
+                                                                                BlurRadius="15"
+                                                                                ShadowDepth="0"
+                                                                                Opacity="0.8"/>
+                                                            </Border.Effect>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </RepeatButton.Style>
+                                </RepeatButton>
+                            </Track.DecreaseRepeatButton>
+                            <Track.IncreaseRepeatButton>
+                                <RepeatButton Command="Slider.IncreaseLarge">
+                                    <RepeatButton.Style>
+                                        <Style TargetType="RepeatButton">
+                                            <Setter Property="OverridesDefaultStyle" Value="true"/>
+                                            <Setter Property="IsTabStop" Value="false"/>
+                                            <Setter Property="Focusable" Value="false"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="RepeatButton">
+                                                        <Rectangle Fill="Transparent"/>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </RepeatButton.Style>
+                                </RepeatButton>
+                            </Track.IncreaseRepeatButton>
+                            <Track.Thumb>
+                                <Thumb Width="24" Height="24">
+                                    <Thumb.Style>
+                                        <Style TargetType="Thumb">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Ellipse Fill="{StaticResource PsyGradient}"
+                                                               Stroke="White"
+                                                               StrokeThickness="3">
+                                                            <Ellipse.Effect>
+                                                                <DropShadowEffect Color="{StaticResource NeonPurple}"
+                                                                                BlurRadius="25"
+                                                                                ShadowDepth="0"
+                                                                                Opacity="1"/>
+                                                            </Ellipse.Effect>
+                                                        </Ellipse>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Thumb.Style>
+                                </Thumb>
+                            </Track.Thumb>
+                        </Track>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ListBox Style -->
+    <Style x:Key="PsyListBox" TargetType="ListBox">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="#15151F"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource NeonPurpleBrush}"/>
+        <Setter Property="Padding" Value="5"/>
+    </Style>
+
+    <!-- ListBoxItem Style -->
+    <Style TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="Margin" Value="2"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{StaticResource NeonPurple}" Opacity="0.3"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource PsyGradient}"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- TextBlock Glow Styles -->
+    <Style x:Key="GlowText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="{StaticResource NeonBlue}"
+                                BlurRadius="15"
+                                ShadowDepth="0"
+                                Opacity="1"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="GlowTextPurple" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="{StaticResource NeonPurple}"
+                                BlurRadius="15"
+                                ShadowDepth="0"
+                                Opacity="1"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="GlowTextPink" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="{StaticResource NeonPink}"
+                                BlurRadius="15"
+                                ShadowDepth="0"
+                                Opacity="1"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="GlowTextGreen" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="{StaticResource NeonGreen}"
+                                BlurRadius="15"
+                                ShadowDepth="0"
+                                Opacity="1"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Pulsating Text Style -->
+    <Style x:Key="PulseText" TargetType="TextBlock" BasedOn="{StaticResource GlowText}">
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard RepeatBehavior="Forever">
+                        <DoubleAnimation Storyboard.TargetProperty="(TextBlock.Effect).(DropShadowEffect.BlurRadius)"
+                                       From="10" To="25" Duration="0:0:1.5" AutoReverse="True"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Animations -->
+    <Storyboard x:Key="PulseAnimation" RepeatBehavior="Forever" AutoReverse="True">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                        From="0.5" To="1.0" Duration="0:0:1"/>
+    </Storyboard>
+
+    <Storyboard x:Key="RotateAnimation" RepeatBehavior="Forever">
+        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                        From="0" To="360" Duration="0:0:10"/>
+    </Storyboard>
+
+</ResourceDictionary>

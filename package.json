@@ -1,0 +1,23 @@
+{
+  "name": "psyshouttools",
+  "version": "1.0.0",
+  "description": "**Комплексный набор инструментов для обработки аудио и утилит**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AkaTorich/PsyShoutTools.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AkaTorich/PsyShoutTools/issues"
+  },
+  "homepage": "https://github.com/AkaTorich/PsyShoutTools#readme",
+  "dependencies": {
+    "@modelcontextprotocol/server-filesystem": "^2025.3.28"
+  }
+}
